@@ -11,4 +11,18 @@ public class AppTest {
         App classUnderTest = new App();
         classUnderTest.sayQuote();
     }
+    @Test public void testAppWhatQuote() {
+        App classUnderTest = new App();
+        Quote result = classUnderTest.sayQuote();
+        assertNotNull("Quote should not be null", result);
+        assertNotNull("Quote should be a string",result.text);
+        assertNotNull("Quote should be a string",result.author);
+        assertNotNull("Quote should be a string",result.tags);
+        assertNotNull("Quote should be a string",result.likes);
+
+       assertTrue("Text should have some value and a number of characters greater then zero", result.text.split("").length > 0);
+       assertTrue("Author field should have some value and a number of characters greater then zero", result.author.split("").length > 0);
+
+    }
+
 }
