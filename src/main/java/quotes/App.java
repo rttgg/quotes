@@ -10,14 +10,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-    public static Object sayQuote(){
+
+    public static Quote sayQuote(){
         try {
 
+            // provide file path as the parameter
             File file = new File("src/main/resources/recentquotes.json");
             BufferedReader reader = new BufferedReader(new FileReader(file));
+
 
             Gson gson = new Gson();
             String fromFileStream;
@@ -26,12 +26,12 @@ public class App {
             while ((fromFileStream = reader.readLine()) != null){
                 stringAccumulator += fromFileStream;
             }
-            ArrayList<Object> parsedJson = gson.fromJson(stringAccumulator, (Type) Object.class);
-//            Object parsedQuotes = gson.toJson(reader.readLine());
-            int randomIndex = (int) Math.floor(Math.random() * parsedJson.size()) +1;
-//            System.out.println("Parsed Quote: " +parsedQuotes.toString());
-            System.out.println(parsedJson.get(randomIndex));
-            return parsedJson.get(randomIndex);
+            Quote[] parsedJson = gson.fromJson(stringAccumulator, Quote[].class);
+
+            int randomIndex = (int) Math.floor(Math.random() * parsedJson.length) +1;
+            Quote result = parsedJson[(randomIndex)];
+
+            return result;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -41,10 +41,9 @@ public class App {
       return null;
     }
     public static void main(String[] args) {
-        sayQuote();
-        System.out.println(new App().getGreeting());
-//        BufferedReader reader = new BufferedReader();
-//        String json = reader.lines()
+        Quote quote = sayQuote();
+        System.out.println(quote.text + " by " + quote.author);
+
 
     }
 
