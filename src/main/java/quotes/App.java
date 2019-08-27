@@ -67,9 +67,7 @@ public class App {
         checkQuote.setTags(new String[0]);
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader("src/main/resources/internetQuotes.json"));
-        ArrayList<Quote> quotes = gson.fromJson(reader, new TypeToken<ArrayList<Quote>>(){
-
-        }.getType());
+        ArrayList<Quote> quotes = gson.fromJson(reader, new TypeToken<ArrayList<Quote>>(){}.getType());
 
         boolean isPresent = quotesInFile(quotes, newQuote.getQuoteText());
         if (!isPresent) {
@@ -85,16 +83,19 @@ public class App {
         }
 
 public static boolean quotesInFile(ArrayList<Quote> quotes,String quoteText){
-    return (boolean) quotes.stream()
-//            .anyMatch(randomQuote -> randomQuote.getText()
-//            .equals(quoteText));
-
-    .filter(randomQuote -> randomQuote.getText()
-            .equals(quoteText))
-            .findFirst()
-            .isPresent();
-
-
-
-}
+//    return (boolean) quotes.stream()
+////            .anyMatch(randomQuote -> randomQuote.getText()
+////            .equals(quoteText));
+//
+//    .filter(randomQuote -> randomQuote.getText()
+//            .equals(quoteText))
+//            .findFirst()
+//            .isPresent();
+    System.out.println(quotes + "******************");
+        if (quotes.contains(quoteText)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
